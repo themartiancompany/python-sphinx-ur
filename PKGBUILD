@@ -2,7 +2,7 @@
 # Contributor: Fabio Volpe <volpefabio@gmail.com>
 pkgname=python-sphinx
 pkgver=1.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Python documentation generator"
 arch=('any')
 url="http://sphinx.pocoo.org/"
@@ -15,5 +15,9 @@ md5sums=('5ba14b33f74ac7bec558cfd842ca7437')
 
 build() {
     cd "$srcdir/Sphinx-$pkgver"
-    python setup.py install --root="$pkgdir" -O1 || return 1
+
+    # python2 fix
+    sed -i 's_#! /usr/bin/env python_#! /usr/bin/env python2_' sphinx/pycode/pgen2/token.py
+
+    python2 setup.py install --root="$pkgdir" -O1
 }
