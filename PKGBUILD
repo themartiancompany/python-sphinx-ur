@@ -5,7 +5,7 @@
 
 pkgbase=python-sphinx
 pkgname=('python-sphinx' 'python2-sphinx')
-pkgver=1.5.5
+pkgver=1.6.1
 pkgrel=1
 
 arch=('any')
@@ -39,11 +39,12 @@ checkdepends=(
   'python-requests' 'python2-requests'
   'python2-pytest' 'python-pytest'
   'python2-enum34'
+  'python-sphinxcontrib-websupport' 'python2-sphinxcontrib-websupport'
 )
 
 source=("https://pypi.org/packages/source/S/Sphinx/Sphinx-$pkgver.tar.gz")
 
-md5sums=('f9581b3556df9722143c47290273bcf8')
+md5sums=('26cb1cdca7aa4afc8c925d926b6268e7')
 
 prepare() {
   # souce duplication is required because makefile modify source code
@@ -93,7 +94,8 @@ package_python-sphinx() {
     'python-imagesize'
     'python-requests'
   )
-  optdepends=('texlive-latexextra: for generation of PDF documentation')
+  optdepends=('texlive-latexextra: for generation of PDF documentation'
+              'python-sphinxcontrib-websupport: Python API to easily integrate Sphinx documentation into Web applications')
 
   cd Sphinx-$pkgver
   python setup.py install --root="$pkgdir" --optimize=1
@@ -115,7 +117,8 @@ package_python2-sphinx() {
     'python2-imagesize'
     'python2-requests'
   )
-  optdepends=('texlive-latexextra: for generation of PDF documentation')
+  optdepends=('texlive-latexextra: for generation of PDF documentation'
+              'python2-sphinxcontrib-websupport: Python API to easily integrate Sphinx documentation into Web applications')
 
   cd Sphinx-${pkgver}2
   python2 setup.py install --root="$pkgdir" --optimize=1
