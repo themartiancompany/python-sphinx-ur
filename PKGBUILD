@@ -6,7 +6,7 @@
 pkgbase=python-sphinx
 pkgname=('python-sphinx' 'python2-sphinx')
 pkgver=1.6.5
-pkgrel=1
+pkgrel=2
 
 arch=('any')
 url='http://sphinx.pocoo.org/'
@@ -94,6 +94,7 @@ build() {
 package_python-sphinx() {
   pkgdesc='Python3 documentation generator'
   depends=(
+    'python-setuptools'
     'python-jinja'
     'python-pygments'
     'python-docutils'
@@ -120,6 +121,7 @@ package_python-sphinx() {
 package_python2-sphinx() {
   pkgdesc='Python2 documentation generator'
   depends=(
+    'python2-setuptools'
     'python2-jinja'
     'python2-pygments'
     'python2-docutils'
