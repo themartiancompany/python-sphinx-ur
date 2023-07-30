@@ -5,8 +5,9 @@
 # Contributor: Fabio Volpe <volpefabio@gmail.com>
 
 pkgname=python-sphinx
-pkgver=7.0.1
-pkgrel=3
+_name=${pkgname#python-}
+pkgver=7.1.1
+pkgrel=1
 pkgdesc='Python documentation generator'
 arch=('any')
 url=http://www.sphinx-doc.org/
@@ -37,12 +38,11 @@ optdepends=(
   'imagemagick: for ext.imgconverter'
   'texlive-latexextra: for generation of PDF documentation'
 )
-source=("https://pypi.org/packages/source/S/Sphinx/Sphinx-$pkgver.tar.gz")
-sha256sums=('61e025f788c5977d9412587e733733a289e2b9fdc2fef8868ddfbfc4ccfe881d')
-b2sums=('f6193be4d63a1a6c04168b078a3da9e90da410b109b110b9b2402ce242321fae432c08318113b872c15eb5d822857b1cfc735c7f7ed65842cff12732cc31f232')
+source=("https://github.com/$_name-doc/$_name/archive/v$pkgver/$_name-$pkgver.tar.gz")
+b2sums=('4c73fbcd14c962ead0b15de5f36f6101ce1958aae26dffe055e7d9546eea4f998e53b97f3d27f55521d689e13b8524a03443858151968f33fcab1704cbb1319c')
 
 build() {
-  cd Sphinx-$pkgver
+  cd "$_name"-$pkgver
   python -m build --wheel --skip-dependency-check --no-isolation
 
   mkdir -p tempinstall
@@ -51,19 +51,19 @@ build() {
 }
 
 check() {
-  cd Sphinx-$pkgver
+  cd "$_name"-$pkgver
   LC_ALL="en_US.UTF-8" python -X dev -X warn_default_encoding -m pytest -v
 }
 
 package() {
-  cd Sphinx-$pkgver
+  cd "$_name"-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dt "$pkgdir"/usr/share/man/man1 doc/_build/man/sphinx-*.1
+  install -Dt "$pkgdir"/usr/share/man/man1 doc/_build/man/"$_name"-*.1
 
   # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/sphinx-$pkgver.dist-info/LICENSE \
+  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
