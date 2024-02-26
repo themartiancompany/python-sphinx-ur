@@ -38,13 +38,17 @@ optdepends=(
   'imagemagick: for ext.imgconverter'
   'texlive-latexextra: for generation of PDF documentation'
 )
-source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver")
-b2sums=('SKIP')
+source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver"
+         python-sphinx-7.2.6-SOURCE_DATE_EPOCH-fix.patch)
+b2sums=('SKIP'
+        '73afe7aad40e1ec581ba7a2b8a6c8abb28cb8a14950d158843841fb2faeffee160ded10796617bae69a62009ee36c33cac284737c76415059b9959d42ac5a055')
 
 prepare() {
   cd "$_name"
   # Fix autodoc tests for Python 3.11.7 and later
   git cherry-pick -n 7d4ca9cb3eb415084cb288ff0d8d7565932be5be
+  # Fix processing copyright dates when SOURCE_DATE_EPOCH is set
+  patch -Np1 -i ../python-sphinx-7.2.6-SOURCE_DATE_EPOCH-fix.patch
 }
 
 build() {
