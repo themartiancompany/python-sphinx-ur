@@ -41,6 +41,12 @@ optdepends=(
 source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver")
 b2sums=('SKIP')
 
+prepare() {
+  cd "$_name"
+  # Fix autodoc tests for Python 3.11.7 and later
+  git cherry-pick -n 7d4ca9cb3eb415084cb288ff0d8d7565932be5be
+}
+
 build() {
   cd "$_name"
   python -m build --wheel --skip-dependency-check --no-isolation
