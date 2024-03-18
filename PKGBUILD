@@ -40,7 +40,7 @@ optdepends=(
 )
 source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver"
          python-sphinx-7.2.6-SOURCE_DATE_EPOCH-fix.patch)
-b2sums=('SKIP'
+b2sums=('ff04f896e1707375a462e863f4abba9f1bfa2802d0bdfd30c5b602da44357a53f369489ace8e4cb417dc8a95a5f894e030ad47ff8c56d73d02578f0d17a2b063'
         '73afe7aad40e1ec581ba7a2b8a6c8abb28cb8a14950d158843841fb2faeffee160ded10796617bae69a62009ee36c33cac284737c76415059b9959d42ac5a055')
 
 prepare() {
