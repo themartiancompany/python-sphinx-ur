@@ -7,7 +7,7 @@
 pkgname=python-sphinx
 _name=${pkgname#python-}
 pkgver=7.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Python documentation generator'
 arch=('any')
 url=http://www.sphinx-doc.org/
