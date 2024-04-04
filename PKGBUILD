@@ -11,7 +11,7 @@ pkgrel=1
 pkgdesc='Python documentation generator'
 arch=('any')
 url=http://www.sphinx-doc.org/
-license=('BSD')
+license=('BSD-2-Clause')
 depends=(
   'python-babel'
   'python-docutils'
