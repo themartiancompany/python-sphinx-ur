@@ -7,7 +7,7 @@
 pkgname=python-sphinx
 _name=${pkgname#python-}
 pkgver=7.2.6
-pkgrel=4
+pkgrel=5
 pkgdesc='Python documentation generator'
 arch=('any')
 url=http://www.sphinx-doc.org/
@@ -50,7 +50,7 @@ prepare() {
   # Fix processing copyright dates when SOURCE_DATE_EPOCH is set
   patch -Np1 -i ../python-sphinx-7.2.6-SOURCE_DATE_EPOCH-fix.patch
   # Support docutils 0.21
-  sed -e 's|\<0.21|<0.22|' -i pyproject.toml
+  sed -e 's|<0.21|<0.22|' -i pyproject.toml
 }
 
 build() {
