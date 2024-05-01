@@ -6,8 +6,8 @@
 
 pkgname=python-sphinx
 _name=${pkgname#python-}
-pkgver=7.2.6
-pkgrel=5
+pkgver=7.3.7
+pkgrel=1
 pkgdesc='Python documentation generator'
 arch=('any')
 url=http://www.sphinx-doc.org/
@@ -28,8 +28,7 @@ makedepends=('git' 'python-build' 'python-flit-core' 'python-installer')
 checkdepends=(
   'cython'
   'imagemagick' 'librsvg'
-  'python-filelock'
-  'python-html5lib'
+  'python-defusedxml'
   'python-pytest'
   'python-setuptools'
   'texlive-'{fontsextra,fontsrecommended,latexextra,luatex,xetex}
@@ -38,20 +37,8 @@ optdepends=(
   'imagemagick: for ext.imgconverter'
   'texlive-latexextra: for generation of PDF documentation'
 )
-source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver"
-         python-sphinx-7.2.6-SOURCE_DATE_EPOCH-fix.patch)
-b2sums=('ff04f896e1707375a462e863f4abba9f1bfa2802d0bdfd30c5b602da44357a53f369489ace8e4cb417dc8a95a5f894e030ad47ff8c56d73d02578f0d17a2b063'
-        '73afe7aad40e1ec581ba7a2b8a6c8abb28cb8a14950d158843841fb2faeffee160ded10796617bae69a62009ee36c33cac284737c76415059b9959d42ac5a055')
-
-prepare() {
-  cd "$_name"
-  # Fix autodoc tests for Python 3.11.7 and later
-  git cherry-pick -n 7d4ca9cb3eb415084cb288ff0d8d7565932be5be
-  # Fix processing copyright dates when SOURCE_DATE_EPOCH is set
-  patch -Np1 -i ../python-sphinx-7.2.6-SOURCE_DATE_EPOCH-fix.patch
-  # Support docutils 0.21
-  sed -e 's|<0.21|<0.22|' -i pyproject.toml
-}
+source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver")
+b2sums=('7a891990ff6b21599ac398ed5d2979ead6fa9884e06d9ea3f6ee0bd7ea3fe5729af502b26b71f2fea610299e2679bf9c8ee68a16137037e8b89c76da7dc156c1')
 
 build() {
   cd "$_name"
@@ -64,9 +51,7 @@ build() {
 
 check() {
   cd "$_name"
-  LC_ALL="en_US.UTF-8" python -X dev -X warn_default_encoding -m pytest -v \
-    --deselect tests/test_build_linkcheck.py::test_defaults \
-    --deselect tests/test_build_html.py::test_html_scaled_image_link # fail in chroot
+  LC_ALL="en_US.UTF-8" python -X dev -X warn_default_encoding -m pytest -vx
 }
 
 package() {
@@ -77,8 +62,8 @@ package() {
   # Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
-  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE.rst \
+    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.rst
 }
 
 # vim:set ts=2 sw=2 et:
