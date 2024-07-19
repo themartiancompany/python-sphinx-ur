@@ -1,7 +1,7 @@
 pkgbase = python-sphinx
 	pkgdesc = Python documentation generator
-	pkgver = 7.3.7
-	pkgrel = 2
+	pkgver = 7.4.6
+	pkgrel = 1
 	url = http://www.sphinx-doc.org/
 	arch = any
 	license = BSD-2-Clause
@@ -36,8 +36,9 @@ pkgbase = python-sphinx
 	depends = python-sphinxcontrib-qthelp
 	depends = python-sphinxcontrib-serializinghtml
 	optdepends = imagemagick: for ext.imgconverter
+	optdepends = texlive-fontsextra: for the default admonition title icons in PDF output
 	optdepends = texlive-latexextra: for generation of PDF documentation
-	source = git+https://github.com/sphinx-doc/sphinx.git#tag=v7.3.7
-	b2sums = 7a891990ff6b21599ac398ed5d2979ead6fa9884e06d9ea3f6ee0bd7ea3fe5729af502b26b71f2fea610299e2679bf9c8ee68a16137037e8b89c76da7dc156c1
+	source = git+https://github.com/sphinx-doc/sphinx.git#tag=v7.4.6
+	b2sums = 3b723f17b490b4245a5be3af0fa9eb85bdb3d25745d5df89e7d5e6430194b03bd20c1a99162f25d55d80030722f3b7b990b4b0600e98a908bf7969670b9a44fa
 
 pkgname = python-sphinx

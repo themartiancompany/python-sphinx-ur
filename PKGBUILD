@@ -6,45 +6,46 @@
 
 pkgname=python-sphinx
 _name=${pkgname#python-}
-pkgver=7.3.7
-pkgrel=2
+pkgver=7.4.6
+pkgrel=1
 pkgdesc='Python documentation generator'
-arch=('any')
+arch=(any)
 url=http://www.sphinx-doc.org/
-license=('BSD-2-Clause')
+license=(BSD-2-Clause)
 depends=(
-  'python-babel'
-  'python-docutils'
-  'python-imagesize'
-  'python-jinja'
-  'python-packaging'
-  'python-pygments'
-  'python-requests'
-  'python-snowballstemmer'
-  'python-sphinx-alabaster-theme'
-  'python-sphinxcontrib-'{{apple,dev,html}help,jsmath,qthelp,serializinghtml}
+  python-babel
+  python-docutils
+  python-imagesize
+  python-jinja
+  python-packaging
+  python-pygments
+  python-requests
+  python-snowballstemmer
+  python-sphinx-alabaster-theme
+  python-sphinxcontrib-{{apple,dev,html}help,jsmath,qthelp,serializinghtml}
 )
-makedepends=('git' 'python-build' 'python-flit-core' 'python-installer')
+makedepends=(
+  git
+  python-build
+  python-flit-core
+  python-installer
+)
 checkdepends=(
-  'cython'
-  'imagemagick' 'librsvg'
-  'python-defusedxml'
-  'python-pytest'
-  'python-setuptools'
-  'texlive-'{fontsextra,fontsrecommended,latexextra,luatex,xetex}
+  cython
+  imagemagick
+  librsvg
+  python-defusedxml
+  python-pytest
+  python-setuptools
+  texlive-{fontsextra,fontsrecommended,latexextra,luatex,xetex}
 )
 optdepends=(
   'imagemagick: for ext.imgconverter'
+  'texlive-fontsextra: for the default admonition title icons in PDF output'
   'texlive-latexextra: for generation of PDF documentation'
 )
 source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver")
-b2sums=('7a891990ff6b21599ac398ed5d2979ead6fa9884e06d9ea3f6ee0bd7ea3fe5729af502b26b71f2fea610299e2679bf9c8ee68a16137037e8b89c76da7dc156c1')
-
-prepare() {
-  cd "$_name"
-  # Lazy import defusedxml only when necessary
-  git cherry-pick -n ce86026f3b667949ef39f7fdab9a40941d99c5ca
-}
+b2sums=('3b723f17b490b4245a5be3af0fa9eb85bdb3d25745d5df89e7d5e6430194b03bd20c1a99162f25d55d80030722f3b7b990b4b0600e98a908bf7969670b9a44fa')
 
 build() {
   cd "$_name"
@@ -71,5 +72,3 @@ package() {
   ln -s "$site_packages"/"$_name"-$pkgver.dist-info/LICENSE.rst \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.rst
 }
-
-# vim:set ts=2 sw=2 et:
