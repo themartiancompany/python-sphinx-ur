@@ -6,7 +6,7 @@
 
 pkgname=python-sphinx
 _name=${pkgname#python-}
-pkgver=7.4.6
+pkgver=7.4.7
 pkgrel=1
 pkgdesc='Python documentation generator'
 arch=(any)
@@ -45,7 +45,7 @@ optdepends=(
   'texlive-latexextra: for generation of PDF documentation'
 )
 source=("git+https://github.com/$_name-doc/$_name.git#tag=v$pkgver")
-b2sums=('3b723f17b490b4245a5be3af0fa9eb85bdb3d25745d5df89e7d5e6430194b03bd20c1a99162f25d55d80030722f3b7b990b4b0600e98a908bf7969670b9a44fa')
+b2sums=('ff7848f4d63f31a15eb1b4a049adba83c946de4990d84f3e0428b33ceb2a800ffae80a063c3ecbdd5c7d589270d825171b04355eceeb22155a9c1c43f21d11e4')
 
 build() {
   cd "$_name"
